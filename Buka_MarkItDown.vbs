@@ -9,5 +9,5 @@ WshShell.CurrentDirectory = scriptDir
 Dim pythonwPath
 pythonwPath = "pythonw.exe"
 
-' Jalankan app.py secara silent (0 = tersembunyi, False = async)
-WshShell.Run """" & pythonwPath & """ """ & scriptDir & "\app.py""", 0, False
+' Jalankan desktop_app.py secara silent (0 = tersembunyi, False = async)
+WshShell.Run """" & pythonwPath & """ """ & scriptDir & "\desktop_app.py""", 0, False

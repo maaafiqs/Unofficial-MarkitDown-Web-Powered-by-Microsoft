@@ -54,13 +54,24 @@ pip install -r requirements.txt
 
 Menjalankan server web:
 ```bash
-python web_app.py
+python app.py
 ```
+*(Atau `python web_app.py`)*
 
 Menjalankan aplikasi desktop:
 ```bash
-python app.py
+python desktop_app.py
 ```
+
+---
+
+## ☁️ Deploy ke Vercel
+
+Aplikasi web ini sudah terkonfigurasi secara native untuk Vercel Serverless Functions (`api/index.py` dan `vercel.json`):
+1. Import repository ini di dashboard [Vercel](https://vercel.com).
+2. Biarkan setting build default (Framework Preset: **Other**).
+3. Klik **Deploy**.
+4. Aplikasi web Anda langsung online dan siap digunakan di seluruh dunia!
 
 ---
 

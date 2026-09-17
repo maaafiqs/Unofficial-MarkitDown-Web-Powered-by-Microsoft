@@ -16,12 +16,12 @@ start "" powershell -NoProfile -Command "Start-Sleep -Seconds 2; Start-Process '
 :: Jalankan server Flask Python
 where python >nul 2>nul
 if %ERRORLEVEL% EQU 0 (
-    python web_app.py
+    python app.py
     goto end
 )
 
 if exist "C:\laragon\bin\python\python-3.10\python.exe" (
-    "C:\laragon\bin\python\python-3.10\python.exe" web_app.py
+    "C:\laragon\bin\python\python-3.10\python.exe" app.py
     goto end
 )
 

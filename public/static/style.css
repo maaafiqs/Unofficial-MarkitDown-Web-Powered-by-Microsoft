@@ -1036,6 +1036,17 @@ body {
   color: var(--accent-secondary);
 }
 
+.tips-box a {
+  color: var(--accent-secondary);
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+.tips-box a:hover {
+  text-decoration: underline;
+  filter: brightness(1.2);
+}
+
 /* Toast */
 .toast {
   position: fixed;

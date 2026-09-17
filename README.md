@@ -19,7 +19,7 @@ Dirancang khusus untuk mengoptimalkan dokumen sebelum diunggah ke model AI (sepe
 - 📄 **Dual Preview Mode:** Mode *Raw Markdown* untuk teks mentah dan *Tampilan Visual* yang di-render langsung via Marked.js.
 - 📚 **Konversi Massal (Batch):** Unggah puluhan file sekaligus dan unduh semua hasil dalam satu arsip ZIP.
 - 💻 **Dua Pilihan Platform:**
-  - **Versi Web (Flask):** Akses lewat browser atau buka via smartphone dalam satu jaringan Wi-Fi.
+  - **Versi Web (Live Online / Lokal):** Dapat diakses langsung secara online di [markitdownweb-powered-by-microsoft.vercel.app](https://markitdownweb-powered-by-microsoft.vercel.app/) atau dijalankan secara lokal di komputer.
   - **Versi Desktop (CustomTkinter):** Aplikasi Windows native modern lengkap dengan dukungan drag & drop.
 - 🔗 **Integrasi Ekosistem:** Dilengkapi tombol kembali ke [Tulis Cek App](https://tuliscek-app.vercel.app/).
 
@@ -65,9 +65,11 @@ python desktop_app.py
 
 ---
 
-## ☁️ Deploy ke Vercel
+## ☁️ Live Demo & Deploy ke Vercel
+ 
+- 🌐 **Live Website:** [https://markitdownweb-powered-by-microsoft.vercel.app/](https://markitdownweb-powered-by-microsoft.vercel.app/)
 
-Aplikasi web ini sudah terkonfigurasi secara native untuk Vercel Serverless Functions (`api/index.py` dan `vercel.json`):
+Aplikasi web ini mendukung zero-configuration deployment di Vercel:
 1. Import repository ini di dashboard [Vercel](https://vercel.com).
 2. Biarkan setting build default (Framework Preset: **Other**).
 3. Klik **Deploy**.

@@ -50,7 +50,6 @@ $RECYCLE.BIN/
 
 # Temporary outputs
 *.tmp
-*.v5
 temp/
 output.md
 *.zip

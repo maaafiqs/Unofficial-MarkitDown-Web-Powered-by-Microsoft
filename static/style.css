@@ -1489,4 +1489,489 @@ body {
   color: var(--text-primary);
 }
 
+/* ==========================================================================
+   RESPONSIVE DESIGN SYSTEM (MOBILE & TABLET ADAPTATION)
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .workspace-grid {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .ai-comparison-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Navbar Ringkas & Elegan (1 Baris) */
+  .app-header {
+    padding: 8px 14px;
+    background: rgba(15, 23, 42, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  [data-theme="light"] .app-header {
+    background: rgba(255, 255, 255, 0.92);
+  }
+
+  .header-container {
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+
+  .brand-group {
+    gap: 8px;
+    min-width: 0;
+    flex-shrink: 1;
+  }
+
+  .brand-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  .brand-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .brand-title {
+    font-size: 0.96rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .brand-badge {
+    display: none; /* Sembunyikan badge panjang di header mobile agar tidak membungkus ke baris 2 */
+  }
+
+  .header-actions {
+    gap: 6px;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+  }
+
+  .btn-return {
+    padding: 6px 10px;
+    font-size: 0.74rem;
+    gap: 4px;
+    border-radius: 6px;
+  }
+
+  .btn-return svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .status-indicator {
+    padding: 6px 8px;
+    border-radius: 6px;
+  }
+
+  .status-indicator span:not(.status-dot) {
+    display: none; /* Sisakan lampu indikator dot glowing agar hemat tempat */
+  }
+
+  .btn-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+  }
+
+  /* Main Container */
+  .main-content {
+    padding: 16px 12px 48px;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    padding: 10px 0 16px;
+  }
+
+  .hero-tag {
+    font-size: 0.72rem;
+    padding: 3px 10px;
+    margin-bottom: 8px;
+  }
+
+  .hero-title {
+    font-size: 1.45rem;
+    line-height: 1.25;
+    margin-bottom: 10px;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-subtitle {
+    font-size: 0.84rem;
+    line-height: 1.48;
+    padding: 0 4px;
+  }
+
+  /* Collapsible AI Explainer Card */
+  .ai-token-card {
+    padding: 14px 14px;
+    border-radius: var(--border-radius-md);
+  }
+
+  .ai-token-card.collapsed {
+    padding: 12px 14px;
+  }
+
+  .ai-card-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .ai-badge-group {
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+
+  .ai-pill-badge, .ai-pill-save {
+    font-size: 0.72rem;
+    padding: 3px 9px;
+  }
+
+  .ai-card-title {
+    font-size: 1.05rem;
+    line-height: 1.32;
+  }
+
+  .btn-toggle-explain {
+    width: 100%;
+    justify-content: center;
+    padding: 7px 12px;
+    font-size: 0.78rem;
+    border-radius: 6px;
+  }
+
+  .ai-card-subtitle {
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+
+  .ai-comparison-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .comparison-col {
+    padding: 14px;
+  }
+
+  .col-header h4 {
+    font-size: 0.92rem;
+  }
+
+  .comparison-list {
+    font-size: 0.8rem;
+    gap: 10px;
+  }
+
+  /* Segmented Tabs */
+  .tabs-wrapper {
+    margin-bottom: 16px;
+  }
+
+  .tab-list {
+    width: 100%;
+    flex-direction: column;
+    gap: 4px;
+    padding: 4px;
+  }
+
+  .tab-button {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 9px 14px;
+    font-size: 0.82rem;
+  }
+
+  /* Panel Upload */
+  .panel-upload {
+    padding: 16px;
+  }
+
+  .panel-header {
+    margin-bottom: 12px;
+  }
+
+  .panel-title {
+    font-size: 1rem;
+  }
+
+  .dropzone {
+    padding: 22px 12px;
+    margin-bottom: 12px;
+  }
+
+  .dropzone-icon svg {
+    width: 38px;
+    height: 38px;
+  }
+
+  .dropzone-title {
+    font-size: 0.92rem;
+  }
+
+  .dropzone-desc {
+    font-size: 0.76rem;
+    margin-bottom: 10px;
+  }
+
+  .format-pills {
+    gap: 4px;
+  }
+
+  .format-pills span {
+    font-size: 0.65rem;
+    padding: 2px 6px;
+  }
+
+  .selected-file-card {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .file-name {
+    max-width: 160px;
+    font-size: 0.82rem;
+  }
+
+  .file-size {
+    font-size: 0.72rem;
+  }
+
+  .btn-full {
+    padding: 12px 16px;
+    font-size: 0.92rem;
+  }
+
+  .ai-quick-tip {
+    font-size: 0.74rem;
+    padding: 8px 10px;
+  }
+
+  /* Panel Result & Toolbar */
+  .panel-result {
+    border-radius: var(--border-radius-md);
+  }
+
+  .result-toolbar {
+    padding: 10px 12px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .view-toggle-group {
+    width: 100%;
+    display: flex;
+  }
+
+  .toggle-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 7px 8px;
+    font-size: 0.78rem;
+  }
+
+  .result-meta-stats {
+    text-align: center;
+    font-size: 0.75rem;
+  }
+
+  .result-actions {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+  }
+
+  .result-actions .btn-action {
+    flex: 1;
+    justify-content: center;
+    padding: 9px 8px;
+    font-size: 0.78rem;
+  }
+
+  .result-actions .btn-action svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .result-editor {
+    min-height: 280px;
+    max-height: 380px;
+    font-size: 0.82rem;
+    padding: 12px;
+  }
+
+  .rendered-markdown-content {
+    min-height: 280px;
+    max-height: 380px;
+    padding: 14px;
+    font-size: 0.86rem;
+  }
+
+  /* Tabel Markdown Responsive dengan Horizontal Scroll */
+  .rendered-markdown-content table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 12px 0;
+  }
+
+  .rendered-markdown-content th,
+  .rendered-markdown-content td {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+
+  /* Batch Tab Responsiveness */
+  .batch-card {
+    padding: 16px;
+  }
+
+  .batch-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .batch-top-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .batch-top-actions button {
+    width: 100%;
+    justify-content: center;
+    padding: 9px 12px;
+    font-size: 0.82rem;
+  }
+
+  .batch-dropzone {
+    margin-bottom: 16px;
+  }
+
+  .batch-queue-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .batch-table {
+    min-width: 480px;
+  }
+
+  .batch-table th, 
+  .batch-table td {
+    padding: 8px 10px;
+    font-size: 0.78rem;
+  }
+
+  /* Docs & Formats Tab */
+  .formats-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .format-card {
+    padding: 14px;
+  }
+
+  .format-card h4 {
+    font-size: 0.92rem;
+  }
+
+  .format-card p {
+    font-size: 0.8rem;
+  }
+
+  .tips-box {
+    padding: 14px;
+  }
+
+  .tips-box h4 {
+    font-size: 0.88rem;
+  }
+
+  .tips-box ul {
+    padding-left: 16px;
+    font-size: 0.8rem;
+  }
+
+  .ai-guide-box {
+    padding: 14px;
+  }
+
+  .ai-guide-box h4 {
+    font-size: 0.88rem;
+  }
+
+  .ai-guide-steps {
+    padding-left: 16px;
+    font-size: 0.8rem;
+  }
+
+  .prompt-template-card {
+    padding: 10px 12px;
+  }
+
+  .prompt-code {
+    font-size: 0.76rem;
+  }
+
+  /* Toast Notification di Mobile */
+  .toast {
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%);
+    bottom: 20px;
+    width: calc(100% - 32px);
+    max-width: 360px;
+    justify-content: center;
+    font-size: 0.82rem;
+    padding: 10px 16px;
+  }
+
+  /* Footer */
+  .app-footer {
+    padding: 24px 12px;
+    font-size: 0.75rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero-title {
+    font-size: 1.35rem;
+  }
+
+  .result-actions {
+    flex-direction: column;
+  }
+
+  .result-actions .btn-action {
+    width: 100%;
+  }
+
+  .file-name {
+    max-width: 120px;
+  }
+}
+
+
 

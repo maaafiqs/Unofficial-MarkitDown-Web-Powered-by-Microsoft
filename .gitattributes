@@ -1,0 +1,10 @@
+# GitHub Linguist Overrides
+# Konfigurasi agar statistik bahasa di GitHub menampilkan Python sebagai bahasa dominan (100%)
+# File-file frontend dan helper script di bawah ini tetap berfungsi normal,
+# namun diabaikan dari perhitungan persentase bahasa repositori.
+
+*.css linguist-detectable=false
+*.js linguist-detectable=false
+*.html linguist-detectable=false
+*.bat linguist-detectable=false
+*.vbs linguist-detectable=false

@@ -70,6 +70,9 @@ def fast_convert_document(file_path: str, ext: str) -> str:
     return result.text_content or ""
 
 @app.route("/")
+@app.route("/index")
+@app.route("/api/index")
+@app.route("/api/index.py")
 def index():
     return render_template("index.html")
 
@@ -216,6 +219,14 @@ def download_zip():
         as_attachment=True,
         download_name="MarkItDown_Hasil_Konversi.zip"
     )
+
+@app.errorhandler(404)
+def handle_not_found(e):
+    # Jika request bukan panggilan API konversi/status, tampilkan halaman web
+    path = request.path
+    if not path.startswith("/api/convert") and not path.startswith("/api/status") and not path.startswith("/api/download"):
+        return render_template("index.html")
+    return jsonify({"success": False, "error": f"Endpoint {path} tidak ditemukan."}), 404
 
 def main():
     if hasattr(sys.stdout, "reconfigure"):

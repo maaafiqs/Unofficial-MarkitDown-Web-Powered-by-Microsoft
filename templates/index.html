@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MarkItDown Web Studio - Konversi Dokumen ke Markdown</title>
+  <meta name="description" content="Aplikasi web modern untuk mengonversi Word (.docx), PDF (.pdf), Excel (.xlsx), PowerPoint (.pptx), HTML, dan dokumen lainnya ke format Markdown secara cepat dan instan ditenagai oleh Microsoft MarkItDown.">
+  
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Marked.js untuk Live Markdown Render -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- Background Glow Accents -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+
+  <!-- Header & Navigation -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-group">
+        <div class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">MarkItDown Web Studio</h1>
+          <span class="brand-badge">Microsoft MarkItDown Engine</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- Tombol Kembali ke Tulis Cek -->
+        <a href="https://tuliscek-app.vercel.app/" class="btn-return" title="Kembali ke Aplikasi Tulis Cek" target="_blank" rel="noopener noreferrer">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          <span>Kembali ke Tulis Cek</span>
+        </a>
+
+        <div class="status-indicator" id="serverStatusBadge">
+          <span class="status-dot"></span>
+          <span class="status-text" id="serverStatusText">Server Siap</span>
+        </div>
+        <button id="themeToggleBtn" class="btn-icon" title="Ganti Tema (Dark/Light)" aria-label="Ganti Tema">
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-content">
+    <!-- Hero Banner yang Langsung Menjelaskan Fungsi Aplikasi -->
+    <section class="hero-section">
+      <div class="hero-tag">
+        <span class="pulse-icon">⚡</span> AI Document & Token Optimizer
+      </div>
+      <h2 class="hero-title">Konversi PDF & Dokumen ke Markdown <br><span class="gradient-text">Biar Upload ke AI Hemat Token & Bebas Limit</span></h2>
+      <p class="hero-subtitle">
+        Pernah gagal merangkum file PDF di <strong>ChatGPT, Claude, atau Gemini</strong> karena file terlalu besar atau kuota token cepat habis? 
+        Aplikasi ini membersihkan kode sampah visual dari file dokumen Anda dan mengubahnya menjadi format <strong>Markdown murni</strong>—sehingga kuota token hemat hingga 80% dan hasil rangkuman AI jauh lebih akurat!
+      </p>
+    </section>
+
+    <!-- Kotak Penjelasan Fungsi Utama yang Bisa Dibuka / Ditutup -->
+    <section class="ai-token-section">
+      <div class="ai-token-card" id="aiTokenCard">
+        <div class="ai-card-header" id="aiCardHeader">
+          <div class="header-left">
+            <div class="ai-badge-group">
+              <span class="ai-pill-badge">💡 FUNGSI UTAMA APLIKASI INI</span>
+              <span class="ai-pill-save">Hemat Token Hingga 80%</span>
+            </div>
+            <h3 class="ai-card-title">Kenapa Dokumen Harus Diubah ke Markdown Sebelum Masuk ke AI?</h3>
+          </div>
+          <button class="btn-toggle-explain" id="btnToggleAiExplain" type="button" aria-expanded="true" title="Tutup atau buka bagian ini">
+            <span id="toggleAiText">Tutup Penjelasan</span>
+            <svg id="toggleAiIcon" class="toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="18 15 12 9 6 15"></polyline>
+            </svg>
+          </button>
+        </div>
+
+        <div class="ai-card-body" id="aiCardBody">
+          <p class="ai-card-subtitle">
+            Banyak orang langsung mengunggah file <strong>PDF, Word (.docx), atau Excel</strong> mentah ke ChatGPT/Claude untuk dirangkum. Akibatnya, token cepat habis dan sering terkena limit harian. Inilah perbandingannya:
+          </p>
+
+          <div class="ai-comparison-grid">
+            <!-- Sisi Negatif: Tanpa MarkItDown -->
+            <div class="comparison-col col-negative">
+              <div class="col-header">
+                <span class="status-icon-badge badge-danger">✕</span>
+                <h4>Upload PDF / Dokumen Mentah ke AI</h4>
+              </div>
+              <ul class="comparison-list">
+                <li>
+                  <strong>Boros Kuota Token:</strong> File biner PDF/DOCX mengandung ribuan kode metadata, font, styling, dan koordinat visual yang ikut dihitung sebagai token prompt.
+                </li>
+                <li>
+                  <strong>Cepat Terkena Limit:</strong> Batas token harian (TPM / context limit) Anda cepat habis hanya untuk membaca satu dokumen tebal.
+                </li>
+                <li>
+                  <strong>Tabel Sering Berantakan:</strong> AI sering gagal membaca urutan baris & kolom PDF bertingkat, sehingga hasil rangkuman menjadi tidak akurat.
+                </li>
+                <li>
+                  <strong>Rentan Halusinasi:</strong> AI kebingungan membedakan mana teks inti dokumen dan mana teks header/footer/formatting.
+                </li>
+              </ul>
+            </div>
+
+            <!-- Sisi Positif: Dengan MarkItDown -->
+            <div class="comparison-col col-positive">
+              <div class="col-header">
+                <span class="status-icon-badge badge-success">✓</span>
+                <h4>Konversi Dulu ke Markdown dengan MarkItDown</h4>
+              </div>
+              <ul class="comparison-list">
+                <li>
+                  <strong>Super Hemat Token (Ringkas):</strong> Menghapus semua kode sampah biner dan hanya menyisakan teks esensial yang 100% berguna bagi AI.
+                </li>
+                <li>
+                  <strong>Bebas Batas Limit:</strong> Dokumen puluhan hingga ratusan halaman bisa langsung dimuat dalam satu prompt tanpa memicu pesan error <em>file too large</em>.
+                </li>
+                <li>
+                  <strong>Tabel Rapi & Presisi:</strong> Diubah menjadi format tabel Markdown standar (<code>| Kolom | Data |</code>) yang merupakan format paling disukai oleh model LLM.
+                </li>
+                <li>
+                  <strong>Rangkuman Lebih Tajam:</strong> AI langsung memahami struktur dokumen secara hierarkis (Heading <code>#</code>, <code>##</code>, bullet points) dan memberikan rangkuman tanpa halusinasi.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <div class="tabs-wrapper">
+      <div class="tab-list" role="tablist">
+        <button class="tab-button active" id="tabBtnSingle" role="tab" aria-selected="true" aria-controls="tabSingle">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+          Konversi File Tunggal
+        </button>
+        <button class="tab-button" id="tabBtnBatch" role="tab" aria-selected="false" aria-controls="tabBatch">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+          Konversi Massal (Batch)
+        </button>
+        <button class="tab-button" id="tabBtnDocs" role="tab" aria-selected="false" aria-controls="tabDocs">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          Format & Bantuan
+        </button>
+      </div>
+    </div>
+
+    <!-- TAB 1: KONVERSI SINGLE -->
+    <section class="tab-panel active" id="tabSingle" role="tabpanel" aria-labelledby="tabBtnSingle">
+      <div class="workspace-grid">
+        <!-- Kolom Kiri: Upload Box & Info -->
+        <div class="card panel-upload">
+          <div class="panel-header">
+            <h3 class="panel-title">Unggah Dokumen</h3>
+            <span class="file-limits">Maksimal 100 MB</span>
+          </div>
+
+          <!-- Drag and Drop Dropzone -->
+          <div class="dropzone" id="singleDropzone">
+            <input type="file" id="singleFileInput" class="file-input-hidden" accept=".docx,.pdf,.pptx,.xlsx,.xls,.html,.htm,.csv,.tsv,.txt,.json,.xml,.zip">
+            <div class="dropzone-content">
+              <div class="dropzone-icon">
+                <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+              </div>
+              <h4 class="dropzone-title">Tarik & Lepaskan File ke Sini</h4>
+              <p class="dropzone-desc">atau klik untuk memilih dari komputer Anda</p>
+              <div class="format-pills">
+                <span>DOCX</span>
+                <span>PDF</span>
+                <span>XLSX</span>
+                <span>PPTX</span>
+                <span>HTML</span>
+                <span>CSV</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Info File Terpilih -->
+          <div class="selected-file-card hidden" id="selectedFileCard">
+            <div class="file-icon-box" id="fileExtBadge">DOC</div>
+            <div class="file-info-text">
+              <div class="file-name" id="fileNameDisplay">dokumen.docx</div>
+              <div class="file-meta" id="fileMetaDisplay">128 KB • Terdeteksi</div>
+            </div>
+            <button class="btn-remove-file" id="btnRemoveFile" title="Hapus file" aria-label="Hapus file">&times;</button>
+          </div>
+
+          <!-- Conversion Progress Bar -->
+          <div class="progress-container hidden" id="conversionProgress">
+            <div class="progress-bar-wrapper">
+              <div class="progress-bar-animated" id="progressBarFill"></div>
+            </div>
+            <span class="progress-status-label" id="progressStatusLabel">Sedang mengonversi dokumen...</span>
+          </div>
+
+          <!-- Tombol Aksi -->
+          <div class="action-buttons-group">
+            <button class="btn btn-primary btn-full" id="btnConvertSingle" disabled>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+              Konversi ke Markdown
+            </button>
+            <button class="btn btn-secondary btn-full" id="btnResetSingle">
+              Reset
+            </button>
+            <div class="ai-quick-tip">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+              <span>Setelah konversi, klik <strong>Salin</strong> lalu tempelkan ke <strong>ChatGPT/Claude</strong> agar rangkum dokumen tebal tidak memboroskan kuota token!</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kolom Kanan: Preview & Hasil -->
+        <div class="card panel-result">
+          <div class="result-toolbar">
+            <div class="view-toggle-group">
+              <button class="toggle-btn active" id="btnViewRaw" title="Lihat Teks Mentah Markdown">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                Markdown Mentah
+              </button>
+              <button class="toggle-btn" id="btnViewRendered" title="Lihat Tampilan Visual Hasil Format">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                Tampilan Visual
+              </button>
+            </div>
+
+            <div class="result-meta-stats" id="resultStats">
+              <span>0 karakter</span> • <span>0 baris</span>
+            </div>
+
+            <div class="result-actions">
+              <button class="btn-action" id="btnCopyMarkdown" title="Salin teks Markdown ini untuk langsung ditempelkan ke ChatGPT / Claude" disabled>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                Salin Teks
+              </button>
+              <button class="btn-action btn-action-accent" id="btnDownloadMarkdown" title="Simpan sebagai file dokumen Markdown (.md) yang siap diunggah ke AI atau dibuka di Notepad" disabled>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Unduh Markdown (.md)
+              </button>
+            </div>
+          </div>
+
+          <!-- Bar Penjelasan Format .md untuk Pengguna Awam / Non-Programmer -->
+          <div class="format-explainer-bar">
+            <span class="info-icon">💡</span>
+            <span><strong>Apa itu file .md?</strong> File <strong>Markdown (.md)</strong> adalah format dokumen teks terstruktur yang super ringan (bisa dibuka di Notepad) dan merupakan format paling ideal untuk di-upload langsung ke AI (ChatGPT / Claude / Gemini) agar hemat kuota token!</span>
+          </div>
+
+          <!-- Viewer Container -->
+          <div class="viewer-wrapper">
+            <!-- Mode 1: Editor Raw Markdown -->
+            <textarea id="rawMarkdownEditor" class="markdown-editor" placeholder="Hasil konversi Markdown akan muncul di sini... Anda juga bisa langsung mengetik atau mengedit teks ini." spellcheck="false"></textarea>
+
+            <!-- Mode 2: Rendered HTML View -->
+            <div id="renderedMarkdownView" class="rendered-markdown-content hidden">
+              <div class="empty-state-notice">
+                <p>Belum ada konten dokumen. Silakan unggah dan konversi dokumen Anda.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: KONVERSI BATCH -->
+    <section class="tab-panel" id="tabBatch" role="tabpanel" aria-labelledby="tabBtnBatch">
+      <div class="card batch-card">
+        <div class="batch-header">
+          <div>
+            <h3 class="panel-title">Konversi Banyak File Dokumen</h3>
+            <p class="panel-subtitle">Unggah banyak file sekaligus, konversi bersamaan, dan unduh semua hasil dalam format arsip ZIP.</p>
+          </div>
+          <div class="batch-top-actions">
+            <button class="btn btn-secondary" id="btnBatchClear">
+              Kosongkan Antrean
+            </button>
+            <button class="btn btn-primary" id="btnBatchStart" disabled>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              Mulai Konversi Semua
+            </button>
+          </div>
+        </div>
+
+        <!-- Batch Dropzone -->
+        <div class="dropzone batch-dropzone" id="batchDropzone">
+          <input type="file" id="batchFileInput" class="file-input-hidden" multiple accept=".docx,.pdf,.pptx,.xlsx,.xls,.html,.htm,.csv,.tsv,.txt,.json,.xml,.zip">
+          <div class="dropzone-content">
+            <div class="dropzone-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"></path><path d="M18 8h4a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-4"></path><circle cx="8" cy="12" r="2"></circle></svg>
+            </div>
+            <h4 class="dropzone-title">Tarik & Lepaskan Banyak File ke Sini</h4>
+            <p class="dropzone-desc">Anda bisa memilih puluhan file dokumen sekaligus</p>
+          </div>
+        </div>
+
+        <!-- Batch Queue Table -->
+        <div class="batch-queue-container">
+          <div class="queue-header-bar">
+            <span id="queueCounterText">0 file dalam antrean</span>
+            <button class="btn-action hidden" id="btnDownloadBatchZip">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Unduh Semua Hasil (.ZIP)
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="batch-table">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama File</th>
+                  <th>Ukuran</th>
+                  <th>Status</th>
+                  <th>Waktu</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="batchTableBody">
+                <tr class="empty-row">
+                  <td colspan="6">Belum ada file dalam antrean. Seret file ke area di atas.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: FORMAT & BANTUAN -->
+    <section class="tab-panel" id="tabDocs" role="tabpanel" aria-labelledby="tabBtnDocs">
+      <div class="docs-container">
+        <div class="docs-intro">
+          <h3>Daftar Format yang Didukung oleh Microsoft MarkItDown</h3>
+          <p>MarkItDown menggunakan parser spesifik untuk masing-masing format untuk memastikan ekstraksi teks, tabel, dan struktur dokumen menjadi rapi dan terstandar.</p>
+        </div>
+
+        <div class="formats-grid">
+          <div class="format-card">
+            <div class="format-card-icon docx-color">DOCX</div>
+            <h4>Microsoft Word</h4>
+            <p>Mengubah paragraf, heading level 1-6, tabel bergaris, daftar nomor/bullet, dan pemformatan teks tebal/miring.</p>
+          </div>
+          <div class="format-card">
+            <div class="format-card-icon pdf-color">PDF</div>
+            <h4>Adobe PDF</h4>
+            <p>Mengekstrak teks halaman demi halaman, menjaga pemisah paragraf, dan membersihkan pemotongan baris yang tidak rapi.</p>
+          </div>
+          <div class="format-card">
+            <div class="format-card-icon xlsx-color">XLSX</div>
+            <h4>Microsoft Excel</h4>
+            <p>Mengubah tabel spreadsheet dan lembar kerja menjadi tabel Markdown terstruktur dengan baris header dan pemisah.</p>
+          </div>
+          <div class="format-card">
+            <div class="format-card-icon pptx-color">PPTX</div>
+            <h4>PowerPoint</h4>
+            <p>Mengekstrak judul slide, bullet point teks presentasi, dan catatan presenter dari setiap halaman slide.</p>
+          </div>
+          <div class="format-card">
+            <div class="format-card-icon html-color">HTML</div>
+            <h4>Halaman Web</h4>
+            <p>Menghapus tag boilerplate/skrip dan mengekstrak konten utama website menjadi Markdown siap pakai.</p>
+          </div>
+          <div class="format-card">
+            <div class="format-card-icon csv-color">DATA</div>
+            <h4>CSV / TXT / JSON / XML</h4>
+            <p>Mengonversi data baris/kolom CSV atau teks terstruktur ke format dokumen Markdown yang mudah dibaca.</p>
+          </div>
+        </div>
+
+        <div class="tips-box">
+          <h4>💡 Tips Penggunaan Versi Web:</h4>
+          <ul>
+            <li><strong>Akses dari Smartphone:</strong> Sambungkan HP Anda ke WiFi yang sama dengan komputer, lalu buka <code>http://[IP-Komputer-Anda]:5000</code> dari browser HP untuk mengonversi dokumen langsung dari ponsel.</li>
+            <li><strong>Pratinjau Ganda:</strong> Gunakan tab "Tampilan Visual" untuk melihat bagaimana tabel dan heading dokumen Anda akan tampil saat dipublikasikan.</li>
+            <li><strong>Ekspor Massal:</strong> Pada tab konversi massal, Anda bisa mengunduh seluruh file markdown yang berhasil dalam satu paket ZIP.</li>
+          </ul>
+        </div>
+
+        <div class="ai-guide-box">
+          <h4>🤖 Cara Praktis Merangkum dengan AI (ChatGPT / Claude / DeepSeek / Gemini):</h4>
+          <ol class="ai-guide-steps">
+            <li><strong>1. Konversi:</strong> Unggah file PDF, DOCX, atau XLSX Anda ke MarkItDown.</li>
+            <li><strong>2. Salin Teks:</strong> Klik tombol <code>Salin Teks</code> di panel hasil sebelah kanan.</li>
+            <li><strong>3. Tempelkan ke Chat AI dengan Template Prompt Ini:</strong>
+              <div class="prompt-template-card">
+                <div class="prompt-header">
+                  <span>Contoh Prompt AI</span>
+                  <button class="btn-copy-prompt" onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); alert('Template prompt disalin!');">Salin Prompt</button>
+                  <pre class="prompt-code">Berikut adalah dokumen yang sudah dikonversi ke format Markdown.
+Tolong buatkan:
+1. Rangkuman eksekutif (ringkasan inti dalam 3-5 poin).
+2. Data penting atau angka utama dari tabel/laporan.
+3. Kesimpulan dan rekomendasi aksi.
+
+[Tempelkan teks Markdown hasil konversi di sini]</pre>
+                </div>
+              </div>
+            </li>
+            <li><strong>4. Nikmati Hasilnya:</strong> AI akan merespons jauh lebih cepat, tidak terpotong batasan token, dan tabel terbaca akurat!</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast Notification Container -->
+  <div id="toastNotification" class="toast hidden">
+    <span class="toast-icon">✓</span>
+    <span class="toast-message" id="toastMessage">Teks berhasil disalin!</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <p>MarkItDown Web Studio • Ditenagai oleh <strong>Microsoft MarkItDown</strong> dan Python Flask</p>
+    <p class="footer-credit">
+      Dikelola oleh <a href="https://maaafiqs.web.id/" target="_blank" rel="noopener noreferrer" class="credit-link">Maaafiqs Dev</a>
+    </p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/static/app.js"></script>
+</body>
+</html>
